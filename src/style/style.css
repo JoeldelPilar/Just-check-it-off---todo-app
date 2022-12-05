@@ -2,3 +2,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-image: linear-gradient(
+    to left,
+    #49e9c8,
+    #38ddc6,
+    #28d0c2,
+    #1ac4be,
+    #10b7b8,
+    #0eacb2,
+    #12a0ac,
+    #1995a4,
+    #20899a,
+    #267d90,
+    #2b7185,
+    #2e6579
+  );
+  background-size: cover;
+  height: 100vh;
+}
+
+main {
+  height: 90vh;
+}
