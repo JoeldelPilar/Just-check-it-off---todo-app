@@ -32,5 +32,8 @@ module.exports = {
     'no-unused-vars': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-unreachable': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-undef': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
-  }
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": true,
+  },
+  linebreak: ['error', 'windows']
 }
