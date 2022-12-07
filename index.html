@@ -39,9 +39,9 @@
 
           <h2 class="uppercase text-4xl font-black mb-5 sm:mb-0 tracking-wider">todo</h2>
 
-          <div id="sort-list-category" class="text-black">
+          <div id="sort-list-category" class="text-slate-700">
             <label for="category" class="visually-hidden">category</label>
-            <select name="category" id="category" class="p-1">
+            <select name="category" id="category" class="p-1 bg-inputcolor focus:ring-focusring">
               <option value="all">all</option>
               <option value="done">finished</option>
               <option value="undone">needs attention</option>
@@ -52,27 +52,28 @@
         <div id="ToDo-body" class="text-white">
           <article id="all-tasks">
             <div class="p-2">
-              <input type="checkbox" id="task-1">
+              <input type="checkbox" id="task-1" class="focus:ring-focusring">
               <label for="task-1">Create HMTL</label>
             </div>
             <!-- Close task 1  -->
             <div class="p-2">
-              <input type="checkbox" id="task-1">
-              <label for="task-2">Take break</label>
+              <input type="checkbox" id="task-1" class="focus:ring-focusring">
+              <label for=" task-2">Take break</label>
             </div>
             <!-- Close task 2  -->
 
             <div class="p-2">
-              <input type="checkbox" id="task-1">
-              <label for="task-3">Just breath</label>
+              <input type="checkbox" id="task-1" class="focus:ring-focusring">
+              <label for=" task-3">Just breath</label>
             </div>
             <!-- Close task 3  -->
             <hr>
             <div id="create-new-task" class="py-5 text-black">
               <form action="">
                 <label for="new-task-input" class="visually-hidden">new task input</label>
-                <input id="new-task-input" class="p-1" type="text" placeholder="new task input">
-                <button type="submit" class="text-white">add</button>
+                <input id="new-task-input" class="p-1 bg-inputcolor text-slate-900 focus:ring-focusring" type="text"
+                  placeholder="new task input">
+                <button type="submit" class="text-white focus:ring-focusring">add</button>
               </form>
             </div>
             <span>2022-12-07</span>
@@ -83,7 +84,7 @@
     </div>
   </main>
 
-  <section id="about" class="bg-[#36495466] w-4/5 relative mx-auto mb-10 text-white">
+  <section id="about" class="bg-[#36495466] w-4/5 relative mx-auto mb-10 text-white max-w-3xl rounded-md">
     <h2 class=" text-xl p-2 font-light tracking-widest">About</h2>
     <hr class="mx-2">
     <p class="p-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum nobis possimus sint excepturi ut
@@ -94,7 +95,7 @@
       consequatur porro dolorem! Perferendis?</p>
   </section>
 
-  <section id="contact" class="bg-[#36495466] w-4/5 relative mx-auto text-white">
+  <section id="contact" class="bg-[#36495466] w-4/5 relative mx-auto text-white max-w-3xl rounded-md">
     <h2 class=" text-xl p-2 font-light tracking-widest">Contact</h2>
     <hr class="mx-2">
     <div class="p-4 flex justify-start gap-5 ml-2">

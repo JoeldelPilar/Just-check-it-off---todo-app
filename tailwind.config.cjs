@@ -6,7 +6,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'listprimarycolor': '#36495466'
+        'listprimarycolor': '#36495466',
+        'inputcolor': '#99aebb',
+        'focusring': '#5fedad',
       },
       screens: {
         'sm': '500px',
@@ -29,5 +31,6 @@ module.exports = {
   fontFamily: {
     Poppins: ['Montserrat', 'sans-serif'],
   },
-  plugins: [],
+
+  plugins: [require("@tailwindcss/forms")],
 }
