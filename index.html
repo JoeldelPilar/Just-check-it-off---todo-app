@@ -27,21 +27,21 @@
     <div class="head-logo flex items-end p-5">
       <img src="/svg/head_logo.svg" alt="" width="50" height="50">
       <h1 class="text-4xl font-bold tracking-wider text-white pl-3">
-        Get organized
+        just check it off.
       </h1>
     </div>
   </header>
 
   <main class="mb-20">
     <div class="flex flex-col relative mt-10">
-      <section id="todo-list" class="bg-[#36495466] w-4/5 p-5 rounded-md  mx-auto max-w-3xl">
+      <section id="todo-list" class="bg-[#36495466] w-4/5 p-5 rounded-md  mx-auto max-w-3xl shadow-lg">
         <header class="sm:flex justify-between text-white items-end mb-6">
 
           <h2 class="uppercase text-4xl font-black mb-5 sm:mb-0 tracking-wider">todo</h2>
 
           <div id="sort-list-category" class="text-slate-700">
             <label for="category" class="visually-hidden">category</label>
-            <select name="category" id="category" class="p-1 bg-inputcolor focus:ring-focusring">
+            <select name="category" id="category" class="py-1 px3 bg-inputcolor focus:ring-focusring">
               <option value="all">all</option>
               <option value="done">finished</option>
               <option value="undone">needs attention</option>
@@ -51,32 +51,38 @@
 
         <div id="ToDo-body" class="text-white">
           <article id="all-tasks">
-            <div class="p-2">
-              <input type="checkbox" id="task-1" class="focus:ring-focusring">
-              <label for="task-1">Create HMTL</label>
+
+            <!-- Open task 1 -->
+            <div class="task p-1 text-slate-800">
+              <input type="checkbox" id="task-1" class="absolute opacity-0">
+              <label for="task-1" class="bg-slate-200/20 p-1 flex items-center">
+                <span class="custom-checkbox"></span>
+                Create HMTL
+              </label>
             </div>
             <!-- Close task 1  -->
-            <div class="p-2">
-              <input type="checkbox" id="task-1" class="focus:ring-focusring">
-              <label for=" task-2">Take break</label>
+
+            <!-- Open task 2 -->
+            <div class="task p-1 text-slate-800">
+              <input type="checkbox" id="task-2" class="absolute opacity-0">
+              <label for="task-2" class="bg-slate-200/20 p-1 flex items-center">
+                <span class="custom-checkbox"></span>
+                Create styles
+              </label>
             </div>
             <!-- Close task 2  -->
 
-            <div class="p-2">
-              <input type="checkbox" id="task-1" class="focus:ring-focusring">
-              <label for=" task-3">Just breath</label>
-            </div>
-            <!-- Close task 3  -->
             <hr>
             <div id="create-new-task" class="py-5 text-black">
-              <form action="">
+              <form action="" class="flex gap-2">
                 <label for="new-task-input" class="visually-hidden">new task input</label>
-                <input id="new-task-input" class="p-1 bg-inputcolor text-slate-900 focus:ring-focusring" type="text"
-                  placeholder="new task input">
-                <button type="submit" class="text-white focus:ring-focusring">add</button>
+                <input id="new-task-input" class="flex-grow p-1 bg-inputcolor text-slate-900 focus:ring-focusring"
+                  type="text" placeholder="new task input">
+                <button type="submit"
+                  class="text-white focus:ring-focusring bg-buttoncolor hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-full">add</button>
               </form>
             </div>
-            <span>2022-12-07</span>
+            <span id="date-stamp"></span>
 
           </article>
         </div>
@@ -98,12 +104,16 @@
   <section id="contact" class="bg-[#36495466] w-4/5 relative mx-auto text-white max-w-3xl rounded-md">
     <h2 class=" text-xl p-2 font-light tracking-widest">Contact</h2>
     <hr class="mx-2">
-    <div class="p-4 flex justify-start gap-5 ml-2">
+    <div class="p-5 flex justify-start gap-5 ml-2">
       <a href="https://www.linkedin.com/in/joeldelpilar/" rel="noopener noreferrer"
-        class="fa fa-linkedin text-5xl pr-5 border-r-[2px]" target="_blank" title="joel del pilar linkedin"></a>
+        class="fa fa-linkedin text-5xl pr-5 border-r-[2px] scale-1 transition-transform hover:scale-1.5" target="_blank"
+        title="joel del pilar linkedin"></a>
 
       <a href="https://github.com/JoeldelPilar" rel="noopener noreferrer" class="fa fa-github text-5xl" target="_blank"
         title="joel del pilar github"></a>
+      <article>
+        Credits: <br> Kevin Powell - custom checkboxes <br> Kyle - web dev simplyfied, TypeScript inspiration
+      </article>
     </div>
   </section>
 
