@@ -16,6 +16,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="manifest" href="site.webmanifest">
 
@@ -42,9 +44,10 @@
           <div id="sort-list-category" class="text-slate-700">
             <label for="category" class="visually-hidden">category</label>
             <select name="category" id="category" class="py-1 px3 bg-inputcolor focus:ring-focusring">
-              <option value="all">all</option>
-              <option value="done">finished</option>
-              <option value="undone">needs attention</option>
+              <option value="all">all</option> // show all tasks
+              <option value="name">name a-z</option> //sort by name a to z
+              <option value="finished">latest</option> // sort by recently added
+              <option value="undone">needs attention</option> // sort by deadline
             </select>
           </div>
         </header>
@@ -53,22 +56,32 @@
           <article id="all-tasks">
 
             <!-- Open task 1 -->
-            <div class="task p-1 text-slate-800">
+            <div class="task p-1 text-slate-800 flex">
               <input type="checkbox" id="task-1" class="absolute opacity-0">
-              <label for="task-1" class="bg-slate-200/20 p-1 flex items-center">
+              <label for="task-1" class="flex-grow bg-slate-200/20 p-1 flex items-center">
                 <span class="custom-checkbox"></span>
                 Create HMTL
               </label>
+              <button class="p-1 item-end bg-slate-200/20">
+                <span class="material-symbols-outlined pt-2">
+                  delete
+                </span>
+              </button>
             </div>
             <!-- Close task 1  -->
 
             <!-- Open task 2 -->
-            <div class="task p-1 text-slate-800">
+            <div class="task p-1 text-slate-800 flex">
               <input type="checkbox" id="task-2" class="absolute opacity-0">
-              <label for="task-2" class="bg-slate-200/20 p-1 flex items-center">
+              <label for="task-2" class="flex-grow bg-slate-200/20 p-1 flex items-center">
                 <span class="custom-checkbox"></span>
                 Create styles
               </label>
+              <button class="p-1 bg-slate-200/20">
+                <span class="material-symbols-outlined pt-2">
+                  delete
+                </span>
+              </button>
             </div>
             <!-- Close task 2  -->
 
@@ -83,6 +96,7 @@
               </form>
             </div>
             <span id="date-stamp"></span>
+            <span id="current-week"></span>
 
           </article>
         </div>
