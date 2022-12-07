@@ -1,5 +1,13 @@
 import './style/style.css';
 
-console.log('hej');
+/**
+ *  Variables and Selectors
+ */
 
+/**
+ *  Listerners 
+ */
 
+/**
+ *  Functions
+ */
