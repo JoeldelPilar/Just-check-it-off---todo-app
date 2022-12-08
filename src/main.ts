@@ -1,33 +1,33 @@
 import './style/style.css';
 
-
-
-
-
-/**
- *  Variables and Selectors
- */
+/************************************************************************************************************
+ * -------------------------------------> Variables and Selectors <------------------------------------------
+ ************************************************************************************************************/
 
 const date = new Date();
-let year = date.getFullYear();
-let month = date.getMonth() + 1;
-let day = date.getDate();
+let year: number = date.getFullYear();
+let month: number = date.getMonth() + 1;
+let day: number = date.getDate();
 
-const dayDisplay = document.getElementById("date-stamp");
-const displayWeek = document.getElementById('current-week');
+const displayDay: any = document.getElementById("date-stamp");  // any, not crusial for page function.
+const displayWeek: any = document.getElementById('current-week'); // any, not crusial for page function.
 
 /**
  * Print todays date to date-stamp container. 
  */
-dayDisplay.innerHTML = String(year) + '-' + String(month) + '-' + String(day).padStart(2, '0');
+displayDay.innerHTML = year + '-' + month + '-' + String(day).padStart(2, '0');
 
+
+/************************************************************************************************************
+ * -------------------------------------> Listerners <-------------------------------------------------------
+ ************************************************************************************************************/
+
+/************************************************************************************************************
+ * -------------------------------------> Functions <--------------------------------------------------------
+ ************************************************************************************************************/
 
 /**
- *  Listerners 
- */
-
-/**
- *  Functions
+ *  Fetch Time API from http://worldtimeapi.org/
  */
 
 async function getCurrentTime() {
@@ -37,8 +37,13 @@ async function getCurrentTime() {
     .catch((error) => {
     console.error('Error fetching timezone', error);
     return null;
-});
+    });
 }
+
+/**
+ * Use week_number prop. from API to get current week number.
+ */
+
 const currentTime = await getCurrentTime();
 displayWeek.innerHTML = '| week: ' + currentTime.week_number
 
