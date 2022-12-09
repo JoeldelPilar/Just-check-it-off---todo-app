@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Get Organized</title>
+  <title>Just check it off</title>
   <meta name="description" content="webapp">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/ico" href="/favicon.ico">
@@ -37,6 +37,7 @@
   <main class="mb-20">
     <div class="flex flex-col relative mt-10">
       <section id="todo-list" class="bg-[#36495466] w-4/5 p-5 rounded-md  mx-auto max-w-3xl shadow-lg">
+
         <header class="sm:flex justify-between text-white items-end mb-6">
 
           <h2 class="uppercase text-4xl font-black mb-5 sm:mb-0 tracking-wider">todo</h2>
@@ -56,7 +57,7 @@
           <article id="all-tasks">
 
             <!-- Open task 1 -->
-            <div class="task p-1 text-slate-800 flex">
+            <div id="task-container" class="task p-1 text-slate-800 flex">
               <input type="checkbox" id="task-1" class="absolute opacity-0">
               <label for="task-1" class="flex-grow bg-slate-200/20 p-1 flex items-center">
                 <span class="custom-checkbox"></span>
@@ -84,25 +85,25 @@
               </button>
             </div>
             <!-- Close task 2  -->
-
-            <hr>
-            <div id="create-new-task" class="py-5 text-black">
-              <form action="" class="flex sm:flex-row flex-wrap justify-between gap-2">
-                <label for="new-task-input" class="visually-hidden">new task input</label>
-                <input id="new-task-input"
-                  class="flex-grow p-1 py-2 mb-2 bg-inputcolor text-slate-900 focus:ring-focusring" type="text"
-                  placeholder="new task input">
-                <input type="date" class="bg-inputcolor mb-2 flex-wrap" placeholder="set deadline"
-                  onfocus="(this.type='date')">
-                <button type="submit"
-                  class="mb-2 text-white self-end focus:ring-focusring bg-buttoncolor hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-full">add</button>
-              </form>
-            </div>
-
-            <span id="date-stamp"></span>
-            <span id="current-week"></span>
-
           </article>
+
+          <hr>
+          <div id="create-new-task" class="py-5 text-black">
+            <form action="" id="task-form" class="flex sm:flex-row flex-wrap justify-between gap-2">
+              <label for="new-task-input" class="visually-hidden">new task input</label>
+              <input id="new-task-input"
+                class="flex-grow p-1 py-2 mb-2 bg-inputcolor text-slate-900 focus:ring-focusring" type="text"
+                placeholder="new task input">
+              <input type="date" id="date-dropdown" class="bg-inputcolor mb-2 flex-wrap" onfocus="(this.type='date')">
+              <button type="submit" id="add"
+                class="mb-2 text-white self-end focus:ring-focusring bg-buttoncolor hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-full">add</button>
+            </form>
+          </div>
+
+          <span id="date-stamp"></span>
+          <span id="current-week"></span>
+
+
         </div>
       </section>
     </div>
