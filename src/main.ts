@@ -83,8 +83,10 @@ function addToTodoDatabase(Task: Task) {
  }
 
  function printTodoList () {
+    if(allTasks)
+    allTasks.innerHTML = '';
     for (var i = 0; i <todoDatabase.length; i++) {
-        if (todoDatabase[i].inputContent == '') {
+        if (todoDatabase[i].id == '') {
             continue;
         }
         if (allTasks)
