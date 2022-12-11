@@ -6,7 +6,7 @@ import { v4 as uuidV4 } from "uuid"
  ************************************************************************************************************/
 
 type Task = {
-    id: string,
+    id: any;
     inputContent: string;
     createdAt: Date;
     deadline: string | undefined;
@@ -30,8 +30,10 @@ const displayWeek: any = document.getElementById('current-week'); // any, not cr
 const allTasks = document.querySelector<HTMLElement>('#all-tasks'); // container for all individual tasks
 
 const taskForm = document.querySelector<HTMLFormElement>('#task-form');
-const taskInput = document.querySelector<HTMLInputElement>('#new-task-input'); // main input field.
+const taskInput: any = document.querySelector<HTMLInputElement>('#new-task-input'); // main input field.
 const dateDropdown = document.querySelector<HTMLInputElement>('#date-dropdown');  // date dropdown for setting deadline.
+
+const trashBtn = document.querySelector<HTMLButtonElement>('.trash-btn'); // trash or delete task button - one on each task.
 
 // const addButton = document.querySelector('#add') // add button 
 
@@ -53,7 +55,7 @@ displayDay.innerHTML = year + '-' + month + '-' + String(day).padStart(2, '0'); 
 taskForm?.addEventListener('submit', event => {
     event.preventDefault();
 
-    if (taskInput?.value == '' || taskInput == null ) return
+    if (taskInput?.value == '' || taskInput == null) return
     
         const newTask = {
             id: uuidV4(),
@@ -63,8 +65,10 @@ taskForm?.addEventListener('submit', event => {
             completed: false,
         }
          addToTodoDatabase(newTask);
-         taskInput.value = '';
+         taskInput.value = '';              // clear input field when current task is added.
 });
+
+
 
 
 
@@ -76,29 +80,44 @@ taskForm?.addEventListener('submit', event => {
  * Add input field value and date drop down value to "todoDatabase"
  */
 
-function addToTodoDatabase(Task: Task) {
-    todoDatabase.push(Task);
-    console.log(todoDatabase);
-    printTodoList();
- }
+function addToTodoDatabase(Tasks: Task) {
+    if (taskInput.value == 0) {
+        alert('Don\'t forget to specify your task'); // alert the user that he or she needs to type in a task and not a empty string.
+        return;
+    }
+    
+    const found = todoDatabase.find((object) => object.inputContent === taskInput.value);
+    if (found?.inputContent === taskInput.value) {
+        alert('Task is already on your list, work smarter not harder!'); // prevent user from adding the same task twice.
+    } else {
+        todoDatabase.push(Tasks);
+        printTodoList();
+    }
+  
+}
+
+ /**
+  * Print database of task to DOM
+  */
 
  function printTodoList () {
     if(allTasks)
     allTasks.innerHTML = '';
     for (var i = 0; i <todoDatabase.length; i++) {
-        if (todoDatabase[i].id == '') {
-            continue;
-        }
+        // const inUse = todoDatabase.find(item => item.inputContent[i])
+        // if (todoDatabase[i].inputContent != taskInput?.innerHTML) {
+        //     continue;
+        // }
         if (allTasks)
         allTasks.innerHTML += 
         `
-        <div class="task p-1 text-slate-800 flex">
+            <div class="task p-1 text-slate-800 flex">
               <input type="checkbox" id="task-${todoDatabase[i].id}" class="absolute opacity-0">
-              <label for="task-${todoDatabase[i].id}" class="flex-grow bg-slate-200/20 p-1 flex items-center">
+              <label title="Deadline at ${todoDatabase[i].deadline}" for="task-${todoDatabase[i].id}" class="flex-grow bg-slate-200/20 p-1 flex items-center">
                 <span class="custom-checkbox"></span>
                 ${todoDatabase[i].inputContent}
               </label>
-              <button class="p-1 bg-slate-200/20">
+              <button id="remove-${todoDatabase[i].id}" class="trash-btn p-1 bg-slate-200/20">
                 <span class="material-symbols-outlined pt-2">
                   delete
                 </span>
@@ -106,25 +125,39 @@ function addToTodoDatabase(Task: Task) {
             </div>
         `
     }
+        
  }
+
+/** 
+ *  Delete task, remove from taskDatabase, trashBtn
+ */
+
+
+
+function deleteTask(event: any) {
+    const trashBtnClicked = event.target;
+    console.log(trashBtnClicked);
+
+    }
 
 /**
  *  Fetch Time API from http://worldtimeapi.org/
  */
 
-async function getCurrentTime() {
-    return fetch('http://worldtimeapi.org/api/ip/')
-    .then ((data) => data.json())
-    .then ((json) => json)
-    .catch((error) => {
-    console.error('Error fetching timezone', error);
-    return null;
-    });
-}
+// async function getCurrentTime() {
+//     return fetch('http://worldtimeapi.org/api/ip/')
+//     .then ((data) => data.json())
+//     .then ((json) => json)
+//     .catch((error) => {
+//     console.error('Error fetching timezone', error);
+//     return null;
+//     });
+// }
 
 /**
  * Use week_number prop. from API to get current week number.
  */
 
-const currentTime = await getCurrentTime();
-displayWeek.innerHTML = '| week: ' + currentTime.week_number
+// const currentTime = await getCurrentTime();
+// displayWeek.innerHTML = '| week: ' + currentTime.week_number
+

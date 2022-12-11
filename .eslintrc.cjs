@@ -34,6 +34,7 @@ module.exports = {
     'no-undef': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     "at-rule-no-unknown": null,
     "scss/at-rule-no-unknown": true,
+    linebreak: ['error', 'windows'],
   },
-  linebreak: ['error', 'windows']
+
 }
