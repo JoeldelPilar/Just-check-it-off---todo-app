@@ -25,15 +25,13 @@ let month: number = date.getMonth() + 1; // +1 otherwise January becomes 0
 let day: number = date.getDate();
 
 const displayDay: any = document.getElementById('date-stamp');  // any, not crusial for page function.
-const displayWeek: any = document.getElementById('current-week'); // any, not crusial for page function.
+// const displayWeek: any = document.getElementById('current-week'); // any, not crusial for page function.
 
 const allTasks = document.querySelector<HTMLElement>('#all-tasks'); // container for all individual tasks
 
 const taskForm = document.querySelector<HTMLFormElement>('#task-form');
 const taskInput: any = document.querySelector<HTMLInputElement>('#new-task-input'); // main input field.
 const dateDropdown = document.querySelector<HTMLInputElement>('#date-dropdown');  // date dropdown for setting deadline.
-
-const trashBtn = document.querySelector<HTMLButtonElement>('.trash-btn'); // trash or delete task button - one on each task.
 
 // const addButton = document.querySelector('#add') // add button 
 
@@ -100,14 +98,10 @@ function addToTodoDatabase(Tasks: Task) {
   * Print database of task to DOM
   */
 
- function printTodoList () {
+function printTodoList() {
     if(allTasks)
     allTasks.innerHTML = '';
     for (var i = 0; i <todoDatabase.length; i++) {
-        // const inUse = todoDatabase.find(item => item.inputContent[i])
-        // if (todoDatabase[i].inputContent != taskInput?.innerHTML) {
-        //     continue;
-        // }
         if (allTasks)
         allTasks.innerHTML += 
         `
@@ -117,28 +111,43 @@ function addToTodoDatabase(Tasks: Task) {
                 <span class="custom-checkbox"></span>
                 ${todoDatabase[i].inputContent}
               </label>
-              <button id="remove-${todoDatabase[i].id}" class="trash-btn p-1 bg-slate-200/20">
+              <button id="remove-${todoDatabase[i].id}" class="trash-btn p-1 bg-slate-200/20 z-10">
                 <span class="material-symbols-outlined pt-2">
                   delete
                 </span>
               </button>
             </div>
         `
-    }
         
- }
+    }
+
+    
+    let trashBtn = Array.from(document.querySelectorAll('.trash-btn')); // trash or delete task button - one on each task.
+    trashBtn.forEach((item) => {
+    item.addEventListener('click', deleteTask);
+    });
+} 
 
 /** 
  *  Delete task, remove from taskDatabase, trashBtn
  */
 
-
-
 function deleteTask(event: any) {
-    const trashBtnClicked = event.target;
-    console.log(trashBtnClicked);
+    const index = (event.currentTarget);
+    const buttonId = index.id?.replace('remove-', '');
+    const currentTask = todoDatabase.filter((object) => object.id === buttonId)[0];
+    const currentTaskId = currentTask.id;
+  
+    console.log(buttonId);
+    console.log(currentTaskId);
+    
 
+    if (buttonId == currentTaskId) {
+        todoDatabase.splice(0, 1);
+        printTodoList();
     }
+
+}   
 
 /**
  *  Fetch Time API from http://worldtimeapi.org/
