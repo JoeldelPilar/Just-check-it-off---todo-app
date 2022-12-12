@@ -1,8 +1,8 @@
 import './style/style.css';
 import { v4 as uuidV4 } from "uuid"
 
-/************************************************************************************************************
- * -------------------------------> "Database array, save to local storage"<---------------------------------
+/*************************************************************************************************************
+ * -------------------------------> "Database array, saved to local storage"<---------------------------------
  ************************************************************************************************************/
 
 type Task = {
@@ -32,8 +32,6 @@ const allTasks = document.querySelector<HTMLElement>('#all-tasks'); // container
 const taskForm = document.querySelector<HTMLFormElement>('#task-form');
 const taskInput: any = document.querySelector<HTMLInputElement>('#new-task-input'); // main input field.
 const dateDropdown = document.querySelector<HTMLInputElement>('#date-dropdown');  // date dropdown for setting deadline.
-
-// const addButton = document.querySelector('#add') // add button 
 
 /**
  * Print todays date to date-stamp container. 
@@ -65,6 +63,10 @@ taskForm?.addEventListener('submit', event => {
          addToTodoDatabase(newTask);
          taskInput.value = '';              // clear input field when current task is added.
 });
+
+/** 
+ * Checkbox changed status
+*/
 
 
 
@@ -106,12 +108,12 @@ function printTodoList() {
         allTasks.innerHTML += 
         `
             <div class="task p-1 text-slate-800 flex">
-              <input type="checkbox" id="task-${todoDatabase[i].id}" class="absolute opacity-0">
+              <input type="checkbox" id="task-${todoDatabase[i].id}" class="add-click-listener hidden-checkbox absolute opacity-1">
               <label title="Deadline at ${todoDatabase[i].deadline}" for="task-${todoDatabase[i].id}" class="flex-grow bg-slate-200/20 p-1 flex items-center">
                 <span class="custom-checkbox"></span>
                 ${todoDatabase[i].inputContent}
               </label>
-              <button id="remove-${todoDatabase[i].id}" class="trash-btn p-1 bg-slate-200/20 z-10">
+              <button id="remove-${todoDatabase[i].id}" class="add-click-listener trash-btn p-1 bg-slate-200/20 z-10">
                 <span class="material-symbols-outlined pt-2">
                   delete
                 </span>
@@ -120,34 +122,78 @@ function printTodoList() {
         `
         
     }
-
+    // let checkbox = Array.from(document.querySelectorAll('.hidden-checkbox')); // original checkbox hidden behind custom checkbox.
+    // checkbox.forEach((item) => {
+    //     item.addEventListener('click', checkboxStatusShift);
+    // });
     
-    let trashBtn = Array.from(document.querySelectorAll('.trash-btn')); // trash or delete task button - one on each task.
-    trashBtn.forEach((item) => {
-    item.addEventListener('click', deleteTask);
-    });
+    // let trashBtn = Array.from(document.querySelectorAll('.trash-btn')); // trash or delete task button - one on each task.
+    // trashBtn.forEach((item) => {
+    // item.addEventListener('click', deleteTask);
+    // });
+
+    document.querySelectorAll('.add-click-listener').forEach(item => {
+        item.addEventListener('click',  (event: any) => {
+            const thisWasClicked = event.currentTarget;
+            let trashBtn = Array.from(document.querySelectorAll('.trash-btn'));
+            // let checkbox = Array.from(document.querySelectorAll('.hidden-checkbox'));
+            const filterTrashBtn: any = trashBtn.find((btn) => btn.id === thisWasClicked.id);
+            const findTask = trashBtn.indexOf(filterTrashBtn);
+
+            // console.log(filterTrashBtn?.id);
+            console.log(trashBtn);
+            console.log(findTask);
+            
+            
+
+
+
+            if (filterTrashBtn?.id == thisWasClicked.id) {
+                todoDatabase.splice(findTask, 1);
+                printTodoList();
+
+                // deleteTask();
+            }
+            
+            
+            
+        })
+    })
+
+
 } 
+
+/** 
+ * Change status on single task checkbox
+*/
+
+// function checkboxStatusShift(event: any) {
+//     const index = event.currentTarget;
+//     console.log(index);
+    
+// }
 
 /** 
  *  Delete task, remove from taskDatabase, trashBtn
  */
 
-function deleteTask(event: any) {
-    const index = (event.currentTarget);
-    const buttonId = index.id?.replace('remove-', '');
-    const currentTask = todoDatabase.filter((object) => object.id === buttonId)[0];
-    const currentTaskId = currentTask.id;
+// function deleteTask() {
+        
+    // const index = (event.currentTarget);
+    // const buttonId = index.id?.replace('remove-', '');
+    // const currentTask = todoDatabase.filter((object) => object.id === buttonId)[0];
+    // const currentTaskId = currentTask.id;
   
-    console.log(buttonId);
-    console.log(currentTaskId);
+    // console.log(buttonId);
+    // console.log(currentTaskId);
     
 
-    if (buttonId == currentTaskId) {
-        todoDatabase.splice(0, 1);
-        printTodoList();
-    }
+    // if (buttonId == currentTaskId) {
+    //     todoDatabase.splice(0, 1);
+    //     printTodoList();
+    // }
 
-}   
+// }   
 
 /**
  *  Fetch Time API from http://worldtimeapi.org/
