@@ -169,9 +169,9 @@ function checkboxStatusShift(event: any): void {
  *  Delete task, remove from taskDatabase, trashBtn
  */
         
-function deleteTask(event: any, id: HTMLElement): void {
+function deleteTask(event: any, id: HTMLElement | null = null): void {
     let thisWasClicked = event.currentTarget;
-    if(id !== null) {
+    if(id !== undefined) {
         thisWasClicked = id;
     }
 
