@@ -36,7 +36,7 @@
 
   <main class="mb-20">
     <div class="flex flex-col relative mt-10">
-      <section id="todo-list" class="bg-[#36495466] w-4/5 p-5 rounded-md  mx-auto max-w-3xl shadow-lg">
+      <section id="todo-list" class="bg-[#36495495] w-4/5 p-5 rounded-md  mx-auto max-w-3xl shadow-lg">
 
         <header class="sm:flex justify-between text-white items-end mb-6">
 
@@ -46,8 +46,8 @@
             <label for="category" class="visually-hidden">category</label>
             <select name="category" id="category" class="py-1 px3 bg-inputcolor focus:ring-focusring">
               <option value="all">all</option> // show all tasks
-              <option value="name">name a-z</option> //sort by name a to z
-              <option value="finished">latest</option> // sort by recently added
+              <option value="atoz">name a to z</option> //sort by name a to z
+              <option value="date">latest</option> // sort by recently added
               <option value="undone">needs attention</option> // sort by deadline
             </select>
           </div>
@@ -78,7 +78,7 @@
     </div>
   </main>
 
-  <section id="about" class="bg-[#36495466] w-4/5 relative mx-auto mb-10 text-white max-w-3xl rounded-md">
+  <section id="about" class="bg-[#36495495] w-4/5 relative mx-auto mb-10 text-white max-w-3xl rounded-md">
     <h2 class=" text-xl p-2 font-light tracking-widest">About</h2>
     <hr class="mx-2">
     <p class="p-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum nobis possimus sint excepturi ut
@@ -89,7 +89,7 @@
       consequatur porro dolorem! Perferendis?</p>
   </section>
 
-  <section id="contact" class="bg-[#36495466] w-4/5 relative mx-auto text-white max-w-3xl rounded-md">
+  <section id="contact" class="bg-[#36495495] w-4/5 relative mx-auto text-white max-w-3xl rounded-md">
     <h2 class=" text-xl p-2 font-light tracking-widest">Contact</h2>
     <hr class="mx-2">
     <div class="p-5 flex justify-start gap-5 ml-2">
@@ -105,8 +105,6 @@
     </div>
   </section>
 
-  <footer>
-  </footer>
   <script async type="module" src="/src/main.ts"></script>
 </body>
 

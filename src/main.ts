@@ -12,12 +12,19 @@ type Task = {
     deadline: string | undefined;
     completed: boolean;
 }
+const LOCAL_STORAGE_TASK_KEY = 'task.todoDatabase';
+const todoDatabase: Task[] = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TASK_KEY)!) || [];
 
-const todoDatabase: Task[] = [];
 
 /************************************************************************************************************
  * -------------------------------------> Variables and Selectors <------------------------------------------
  ************************************************************************************************************/
+enum SortOrder {
+    All = 'all',
+    AtoZ = 'atoz',
+    Date = 'date',
+    Undone = 'undone',
+}
 
 const date = new Date();
 let year: number = date.getFullYear();
@@ -32,6 +39,8 @@ const allTasks = document.querySelector<HTMLElement>('#all-tasks'); // container
 const taskForm = document.querySelector<HTMLFormElement>('#task-form');
 const taskInput: any = document.querySelector<HTMLInputElement>('#new-task-input'); // main input field.
 const dateDropdown = document.querySelector<HTMLInputElement>('#date-dropdown');  // date dropdown for setting deadline.
+
+const categoryDropdown: any = document.querySelector<HTMLInputElement>('#category');
 
 /**
  * Print todays date to date-stamp container. 
@@ -50,19 +59,25 @@ displayDay.innerHTML = year + '-' + month + '-' + String(day).padStart(2, '0'); 
 
 taskForm?.addEventListener('submit', event => {
     event.preventDefault();
-
-    if (taskInput?.value == '' || taskInput == null) return
+        const regExNoSpace: RegExp = /^\s*$/;
+    if (regExNoSpace.test(taskInput.value)) {
+        alert('Don\'t forget to specify your task'); // alert the user that he or she needs to type in a task and not a empty string.
+        return;
+    }
     
-        const newTask = {
-            id: uuidV4(),
-            inputContent: taskInput?.value,
-            createdAt: date,
-            deadline: dateDropdown?.value,
-            completed: false,
-        }
-         addToTodoDatabase(newTask);
-         taskInput.value = '';              // clear input field when current task is added.
+    const newTask = {
+        id: uuidV4(),
+        inputContent: taskInput.value,
+        createdAt: date,
+        deadline: dateDropdown.value,
+        completed: false,
+    }
+        addToTodoDatabase(newTask);
+        taskInput.value = '';            // clear input field when current task is added.
+    //  dateDropdown.value = '';
 });
+
+
 
 /**
  * Apply listerners to new task 
@@ -73,41 +88,85 @@ function taskListerners() {
         trashButton.addEventListener('click', deleteTask);
     });
     
-    document.querySelectorAll('.custom-checkbox').forEach(checkbox => {
+    document.querySelectorAll('.hidden-checkbox').forEach(checkbox => {
         checkbox.addEventListener('click', checkboxStatusShift);
     });
+
+    
 }
 
 /** 
  * Checkbox changed status
 */
 
-
-
-
-
 /************************************************************************************************************
  * -------------------------------------> Functions <--------------------------------------------------------
  ************************************************************************************************************/
+
+function save() {
+    localStorage.setItem(LOCAL_STORAGE_TASK_KEY, JSON.stringify(todoDatabase));
+}
+
 
 /**
  * Add input field value and date drop down value to "todoDatabase"
  */
 
-function addToTodoDatabase(Tasks: Task) {
-    if (taskInput.value == 0) {
-        alert('Don\'t forget to specify your task'); // alert the user that he or she needs to type in a task and not a empty string.
-        return;
-    }
-    
+function addToTodoDatabase(task: Task) {
+
     const found = todoDatabase.find((object) => object.inputContent === taskInput.value);
     if (found?.inputContent === taskInput.value) {
         alert('Task is already on your list, work smarter not harder!'); // prevent user from adding the same task twice.
     } else {
-        todoDatabase.push(Tasks);
+        todoDatabase.push(task);
+        todoDatabase.sort((completedTrue, completedFalse) => Number(completedTrue.completed) - Number(completedFalse.completed));
+        save();
         printTodoList();
     }
   
+}
+        
+
+categoryDropdown.addEventListener('change', printTodoList);
+
+function sortOrder(sortOrder: SortOrder) {
+    switch (sortOrder) {
+        case SortOrder.All:
+            todoDatabase.sort((completedTrue, completedFalse) => Number(completedTrue.completed) - Number(completedFalse.completed));
+            break;
+        case SortOrder.AtoZ:
+            todoDatabase.sort((a, z) => {
+                let contentA = a.inputContent.toLowerCase(), contentZ = z.inputContent.toLowerCase();
+                if (contentA < contentZ) {
+                    return -1
+                }
+                if (contentA > contentZ) {
+                    return 1
+                }
+                return 0
+            });
+            todoDatabase.sort((completedTrue, completedFalse) => Number(completedTrue.completed) - Number(completedFalse.completed));
+            console.log(todoDatabase);
+            break;
+        case SortOrder.Date:
+            todoDatabase.sort((createdA, createdb) => {
+                let da: any = new Date(createdA.createdAt),
+                    db: any = new Date(createdb.createdAt);
+                return (db - da);         
+            });
+            todoDatabase.sort((completedTrue, completedFalse) => Number(completedTrue.completed) - Number(completedFalse.completed));
+            break;
+        case SortOrder.Undone:
+            todoDatabase.sort((deadlineA, deadlineB) => {
+                let deadA: any = new Date(deadlineA.deadline),
+                    deadB: any = new Date(deadlineB.deadline);
+                return (deadA - deadB);
+            });
+            todoDatabase.sort((completedTrue, completedFalse) => Number(completedTrue.completed) - Number(completedFalse.completed));
+            break;
+
+    }
+
 }
 
  /**
@@ -115,17 +174,22 @@ function addToTodoDatabase(Tasks: Task) {
   */
 
 function printTodoList() {
+    sortOrder(categoryDropdown.value);
+   
     if(allTasks)
     allTasks.innerHTML = '';
     for (var i = 0; i <todoDatabase.length; i++) {
+        const checked = todoDatabase[i].completed ? 'checked' : '';
+       
+    
         if (allTasks)
         allTasks.innerHTML += 
         `
             <div class="task p-1 text-slate-800 flex">
-              <input type="checkbox" id="task-${todoDatabase[i].id}" class="hidden-checkbox absolute opacity-1">
-              <label title="Deadline at ${todoDatabase[i].deadline}" for="task-${todoDatabase[i].id}" class="flex-grow bg-slate-200/20 p-1 flex items-center">
+              <input type="checkbox" ${checked} id="task-${todoDatabase[i].id}" class="hidden-checkbox absolute opacity-1">
+              <label title="Deadline at ${todoDatabase[i].deadline}" for="task-${todoDatabase[i].id}" class="gap-2 flex-grow bg-slate-200/20 p-1 flex items-center font-semibold">
                 <span id="checkbox-${todoDatabase[i].id}" class="custom-checkbox"></span>
-                ${todoDatabase[i].inputContent}
+                <p>${todoDatabase[i].inputContent}</p>
               </label>
               <button id="remove-${todoDatabase[i].id}" class="trash-btn p-1 bg-slate-200/20 z-10">
                 <span class="material-symbols-outlined pt-2">
@@ -134,46 +198,42 @@ function printTodoList() {
               </button>
             </div>
         `
-        
-    }
+
+        }
 
     taskListerners();
 
 } 
-   
-    // let checkbox = Array.from(document.querySelectorAll('.hidden-checkbox'));
-    // const findCheckbox: any = checkbox.find((box) => box.id === thisWasClicked.id);
 
 /** 
  * Change status on single task checkbox
 */
 
 function checkboxStatusShift(event: any): void {
-    const clickedBox = event.currentTarget;
-    console.log(clickedBox.id);
-    console.log(event.currentTarget);
-    console.log('hej');
-    deleteTask(null, event.currentTarget.id);
 
+    const thisWasChecked = event.target;  
+    const findClickedTask: any = todoDatabase.find((task) => task.id == thisWasChecked.id.replace('task-', ''));
+    findClickedTask.completed = !findClickedTask.completed;
+    if(findClickedTask.completed == true) {
+        thisWasChecked.checked = true;
+    } else {
+        thisWasChecked.checked = false;    
+    }
+    todoDatabase.sort((completedTrue, completedFalse) => Number(completedTrue.completed) - Number(completedFalse.completed));
+    thisWasChecked.removeEventListener('click', save);
 
-    // const thisWasChecked = event.currentTarget;
-    // console.log(thisWasChecked.id);
-    // console.log(todoDatabase[0].completed);
-    // const hiddenCheckbox: any= document.querySelectorAll('.hidden-checkbox');
-    // console.log(hiddenCheckbox[0].checked);
-    
-    
+    save();
+    printTodoList();
+   
+     
 }
 
 /** 
  *  Delete task, remove from taskDatabase, trashBtn
  */
         
-function deleteTask(event: any, id: HTMLElement | null = null): void {
+function deleteTask(event: any): void {
     let thisWasClicked = event.currentTarget;
-    if(id !== undefined) {
-        thisWasClicked = id;
-    }
 
     let trashBtn = Array.from(document.querySelectorAll('.trash-btn'));
                     
@@ -182,6 +242,7 @@ function deleteTask(event: any, id: HTMLElement | null = null): void {
                                 
     if (findTrashBtn?.id == thisWasClicked?.id) {
         todoDatabase.splice(indexOfTask, 1);
+        save();
         printTodoList();
 
     }
@@ -210,7 +271,4 @@ function deleteTask(event: any, id: HTMLElement | null = null): void {
 // displayWeek.innerHTML = '| week: ' + currentTime.week_number
 
 
-
-  
-     
-
+printTodoList();

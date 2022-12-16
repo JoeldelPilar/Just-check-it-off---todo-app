@@ -47,7 +47,9 @@ body {
   display: inline-block;
   width: var(--size);
   height: var(--size);
-  margin-right: var(--size);
+
+  /* margin-right: var(--size); */
+  flex-basis: var(--size);
   cursor: pointer;
   border: 2px solid var(--clr-primary);
   border-radius: 50%;
@@ -56,7 +58,7 @@ body {
   transform: scale(1);
   transition: -webkit-transform 250ms ease-in-out;
   transition: transform 250ms ease-in-out;
-  transition: transform 250ms ease-in-out, -webkit-transform 300ms ease-in-out;
+  transition: transform 250ms ease-in-out, -webkit-transform 250ms ease-in-out;
 }
 
 .task:hover .custom-checkbox,
