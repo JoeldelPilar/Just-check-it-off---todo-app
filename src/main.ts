@@ -74,7 +74,7 @@ taskForm?.addEventListener('submit', event => {
     }
         addToTodoDatabase(newTask);
         taskInput.value = '';            // clear input field when current task is added.
-    //  dateDropdown.value = '';
+    //  dateDropdown.value = '';         // clear date when task is added to the list.
 });
 
 
@@ -102,6 +102,57 @@ function taskListerners() {
 /************************************************************************************************************
  * -------------------------------------> Functions <--------------------------------------------------------
  ************************************************************************************************************/
+
+ /**
+  * Print database of task to DOM
+  */
+
+function printTodoList() {
+    sortOrder(categoryDropdown.value);
+   
+    if(allTasks)
+    allTasks.innerHTML = '';
+    for (var i = 0; i <todoDatabase.length; i++) {
+        const checked = todoDatabase[i].completed ? 'checked' : '';
+       
+    
+        if (allTasks)
+        allTasks.innerHTML += 
+        `
+            <div id="${todoDatabase[i].id}" class="task p-1 text-slate-800 flex">
+              <input type="checkbox" ${checked} id="task-${todoDatabase[i].id}" class="hidden-checkbox absolute opacity-0">
+              <label title="Deadline at ${todoDatabase[i].deadline}" for="task-${todoDatabase[i].id}" class="gap-2 flex-grow bg-slate-200/20 p-1 flex items-center font-semibold">
+                <span><span id="checkbox-${todoDatabase[i].id}" class="custom-checkbox flex"></span></span>
+                <p>${todoDatabase[i].inputContent}</p>
+              </label>
+              <button id="remove-${todoDatabase[i].id}" class="trash-btn p-1 bg-slate-200/20 z-10">
+                <span class="material-symbols-outlined pt-2">
+                  delete
+                </span>
+              </button>
+            </div>
+        `
+        
+        
+        const singleTaskDeadline: Date = new Date(todoDatabase[i].deadline);
+        const deadlineIndicator = document.querySelector<HTMLDivElement>(`[id="${todoDatabase[i].id}"]`);
+
+        if(singleTaskDeadline.getDate() - day <= 5 && singleTaskDeadline.getDate() - day >= -1){
+            deadlineIndicator.classList.add('border-2', 'border-sky-500');
+        }
+        if(singleTaskDeadline.getDate() - day < 0){
+            deadlineIndicator.classList.add('border-2', 'border-red-700');
+        }
+        if(todoDatabase[i].completed){
+            deadlineIndicator.classList.remove('border-2')
+        }
+
+    }
+
+    taskListerners();
+
+} 
+
 
 function save() {
     localStorage.setItem(LOCAL_STORAGE_TASK_KEY, JSON.stringify(todoDatabase));
@@ -146,7 +197,6 @@ function sortOrder(sortOrder: SortOrder) {
                 return 0
             });
             todoDatabase.sort((completedTrue, completedFalse) => Number(completedTrue.completed) - Number(completedFalse.completed));
-            console.log(todoDatabase);
             break;
         case SortOrder.Date:
             todoDatabase.sort((createdA, createdb) => {
@@ -169,41 +219,7 @@ function sortOrder(sortOrder: SortOrder) {
 
 }
 
- /**
-  * Print database of task to DOM
-  */
 
-function printTodoList() {
-    sortOrder(categoryDropdown.value);
-   
-    if(allTasks)
-    allTasks.innerHTML = '';
-    for (var i = 0; i <todoDatabase.length; i++) {
-        const checked = todoDatabase[i].completed ? 'checked' : '';
-       
-    
-        if (allTasks)
-        allTasks.innerHTML += 
-        `
-            <div class="task p-1 text-slate-800 flex">
-              <input type="checkbox" ${checked} id="task-${todoDatabase[i].id}" class="hidden-checkbox absolute opacity-1">
-              <label title="Deadline at ${todoDatabase[i].deadline}" for="task-${todoDatabase[i].id}" class="gap-2 flex-grow bg-slate-200/20 p-1 flex items-center font-semibold">
-                <span id="checkbox-${todoDatabase[i].id}" class="custom-checkbox"></span>
-                <p>${todoDatabase[i].inputContent}</p>
-              </label>
-              <button id="remove-${todoDatabase[i].id}" class="trash-btn p-1 bg-slate-200/20 z-10">
-                <span class="material-symbols-outlined pt-2">
-                  delete
-                </span>
-              </button>
-            </div>
-        `
-
-        }
-
-    taskListerners();
-
-} 
 
 /** 
  * Change status on single task checkbox

@@ -44,12 +44,10 @@ body {
 */
 
 .custom-checkbox {
-  display: inline-block;
+  display: block;
   width: var(--size);
   height: var(--size);
-
-  /* margin-right: var(--size); */
-  flex-basis: var(--size);
+  margin-right: var(--size);
   cursor: pointer;
   border: 2px solid var(--clr-primary);
   border-radius: 50%;
