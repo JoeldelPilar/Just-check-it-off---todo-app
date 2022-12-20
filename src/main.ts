@@ -11,6 +11,7 @@ type Task = {
     createdAt: Date;
     deadline: string | undefined;
     completed: boolean;
+    category?: string;
 }
 const LOCAL_STORAGE_TASK_KEY = 'task.todoDatabase';
 const todoDatabase: Task[] = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TASK_KEY)!) || [];
@@ -42,6 +43,12 @@ const dateDropdown = document.querySelector<HTMLInputElement>('#date-dropdown');
 
 const categoryDropdown: any = document.querySelector<HTMLInputElement>('#category');
 
+const schoolCategory = document.querySelector<HTMLButtonElement>('#school');
+const engineeringCategory = document.querySelector<HTMLButtonElement>('#engineering');
+const infoCategory = document.querySelector<HTMLButtonElement>('#info');
+
+ let saveCategory: string;
+
 /**
  * Print todays date to date-stamp container. 
  */
@@ -53,13 +60,17 @@ displayDay.innerHTML = year + '-' + month + '-' + String(day).padStart(2, '0'); 
  * -------------------------------------> Listerners <-------------------------------------------------------
  ************************************************************************************************************/
 
+schoolCategory.addEventListener('click', setCategory);
+engineeringCategory.addEventListener('click', setCategory);
+infoCategory.addEventListener('click', setCategory);
+
 /** 
  * Read what user types
 */
 
 taskForm?.addEventListener('submit', event => {
     event.preventDefault();
-        const regExNoSpace: RegExp = /^\s*$/;
+    const regExNoSpace: RegExp = /^\s*$/;
     if (regExNoSpace.test(taskInput.value)) {
         alert('Don\'t forget to specify your task'); // alert the user that he or she needs to type in a task and not a empty string.
         return;
@@ -71,6 +82,7 @@ taskForm?.addEventListener('submit', event => {
         createdAt: date,
         deadline: dateDropdown.value,
         completed: false,
+        category: saveCategory,
     }
         addToTodoDatabase(newTask);
         taskInput.value = '';            // clear input field when current task is added.
@@ -123,7 +135,7 @@ function printTodoList() {
               <input type="checkbox" ${checked} id="task-${todoDatabase[i].id}" class="hidden-checkbox absolute opacity-0">
               <label title="Deadline at ${todoDatabase[i].deadline}" for="task-${todoDatabase[i].id}" class="gap-2 flex-grow bg-slate-200/20 p-1 flex items-center font-semibold">
                 <span><span id="checkbox-${todoDatabase[i].id}" class="custom-checkbox flex"></span></span>
-                <p>${todoDatabase[i].inputContent}</p>
+                <p>${todoDatabase[i].inputContent}</p><span class="material-symbols-outlined">${todoDatabase[i].category}</span>
               </label>
               <button id="remove-${todoDatabase[i].id}" class="trash-btn p-1 bg-slate-200/20 z-10">
                 <span class="material-symbols-outlined pt-2">
@@ -150,6 +162,8 @@ function printTodoList() {
     }
 
     taskListerners();
+    console.log(todoDatabase);
+    
 
 } 
 
@@ -176,7 +190,32 @@ function addToTodoDatabase(task: Task) {
     }
   
 }
-        
+
+/**
+ * Add category to task, optional.
+ */
+function setCategory(event) {
+    
+    let category = event.currentTarget.id
+    
+    switch(category) {
+        case 'school':
+            saveCategory = 'school';
+            break;
+        case 'engineering':
+           saveCategory = 'engineering';
+            break;
+        case 'info':
+            saveCategory = 'info';
+            break;
+        default:
+            saveCategory
+    }
+    console.log(saveCategory);
+    return saveCategory;
+}
+
+
 
 categoryDropdown.addEventListener('change', printTodoList);
 
