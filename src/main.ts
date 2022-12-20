@@ -11,7 +11,7 @@ type Task = {
     createdAt: Date;
     deadline: string | undefined;
     completed: boolean;
-    category?: string;
+    category: string;
 }
 const LOCAL_STORAGE_TASK_KEY = 'task.todoDatabase';
 const todoDatabase: Task[] = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TASK_KEY)!) || [];
@@ -47,7 +47,7 @@ const schoolCategory = document.querySelector<HTMLButtonElement>('#school');
 const engineeringCategory = document.querySelector<HTMLButtonElement>('#engineering');
 const infoCategory = document.querySelector<HTMLButtonElement>('#info');
 
- let saveCategory: string;
+ let saveCategory: string = '';
 
 /**
  * Print todays date to date-stamp container. 
@@ -84,11 +84,12 @@ taskForm?.addEventListener('submit', event => {
         completed: false,
         category: saveCategory,
     }
+
         addToTodoDatabase(newTask);
         taskInput.value = '';            // clear input field when current task is added.
+        saveCategory = '';
     //  dateDropdown.value = '';         // clear date when task is added to the list.
 });
-
 
 
 /**
@@ -125,9 +126,9 @@ function printTodoList() {
     if(allTasks)
     allTasks.innerHTML = '';
     for (var i = 0; i <todoDatabase.length; i++) {
-        const checked = todoDatabase[i].completed ? 'checked' : '';
-       
-    
+
+        const checked = todoDatabase[i].completed ? 'checked' : '';             
+        
         if (allTasks)
         allTasks.innerHTML += 
         `
@@ -145,7 +146,6 @@ function printTodoList() {
             </div>
         `
         
-        
         const singleTaskDeadline: Date = new Date(todoDatabase[i].deadline);
         const deadlineIndicator = document.querySelector<HTMLDivElement>(`[id="${todoDatabase[i].id}"]`);
 
@@ -162,8 +162,6 @@ function printTodoList() {
     }
 
     taskListerners();
-    console.log(todoDatabase);
-    
 
 } 
 
@@ -182,7 +180,7 @@ function addToTodoDatabase(task: Task) {
     const found = todoDatabase.find((object) => object.inputContent === taskInput.value);
     if (found?.inputContent === taskInput.value) {
         alert('Task is already on your list, work smarter not harder!'); // prevent user from adding the same task twice.
-    } else {
+    }else {
         todoDatabase.push(task);
         todoDatabase.sort((completedTrue, completedFalse) => Number(completedTrue.completed) - Number(completedFalse.completed));
         save();
@@ -195,7 +193,6 @@ function addToTodoDatabase(task: Task) {
  * Add category to task, optional.
  */
 function setCategory(event) {
-    
     let category = event.currentTarget.id
     
     switch(category) {
@@ -208,13 +205,14 @@ function setCategory(event) {
         case 'info':
             saveCategory = 'info';
             break;
+        case 'undefined':
+            saveCategory = '';
+            break;
         default:
-            saveCategory
+            saveCategory = '';
     }
-    console.log(saveCategory);
-    return saveCategory;
+    
 }
-
 
 
 categoryDropdown.addEventListener('change', printTodoList);
@@ -257,8 +255,6 @@ function sortOrder(sortOrder: SortOrder) {
     }
 
 }
-
-
 
 /** 
  * Change status on single task checkbox
