@@ -32,6 +32,8 @@ let year: number = date.getFullYear();
 let month: number = date.getMonth() + 1; // +1 otherwise January becomes 0
 let day: number = date.getDate();
 
+let saveCategory: string = '';
+
 const displayDay: any = document.getElementById('date-stamp');  // any, not crusial for page function.
 // const displayWeek: any = document.getElementById('current-week'); // any, not crusial for page function.
 
@@ -39,6 +41,8 @@ const allTasks = document.querySelector<HTMLElement>('#all-tasks'); // container
 
 const taskForm = document.querySelector<HTMLFormElement>('#task-form');
 const taskInput: any = document.querySelector<HTMLInputElement>('#new-task-input'); // main input field.
+const taskInputIcon: any = document.querySelector('#icon'); // icon display
+
 const dateDropdown = document.querySelector<HTMLInputElement>('#date-dropdown');  // date dropdown for setting deadline.
 
 const categoryDropdown: any = document.querySelector<HTMLInputElement>('#category');
@@ -47,7 +51,6 @@ const schoolCategory = document.querySelector<HTMLButtonElement>('#school');
 const engineeringCategory = document.querySelector<HTMLButtonElement>('#engineering');
 const infoCategory = document.querySelector<HTMLButtonElement>('#info');
 
- let saveCategory: string = '';
 
 /**
  * Print todays date to date-stamp container. 
@@ -210,9 +213,17 @@ function setCategory(event) {
             break;
         default:
             saveCategory = '';
+
     }
-    
+console.log(saveCategory);
+
+if(taskInputIcon.innerText === saveCategory) {
+    saveCategory = '';
 }
+    taskInputIcon.innerText = saveCategory;
+
+}
+
 
 
 categoryDropdown.addEventListener('change', printTodoList);
