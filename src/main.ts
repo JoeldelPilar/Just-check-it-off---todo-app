@@ -217,9 +217,9 @@ function setCategory(event) {
     }
 console.log(saveCategory);
 
-if(taskInputIcon.innerText === saveCategory) {
-    saveCategory = '';
-}
+    if(taskInputIcon.innerText === saveCategory) {
+        saveCategory = '';
+    }
     taskInputIcon.innerText = saveCategory;
 
 }
