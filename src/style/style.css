@@ -77,3 +77,9 @@ body {
 [type="checkbox"]:checked+label {
   opacity: 0.5;
 }
+
+/* 
+.fa,
+.material-symbols-outlined {
+  font-display: swap;
+} */

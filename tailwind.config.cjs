@@ -9,7 +9,7 @@ module.exports = {
         'listprimarycolor': '#36495466',
         'inputcolor': '#99aebb',
         'focusring': '#5fedad',
-        'buttoncolor': '#00decf',
+        'buttoncolor': '#7e56a6',
       },
       screens: {
         'sm': '500px',

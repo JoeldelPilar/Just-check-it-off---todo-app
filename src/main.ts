@@ -31,6 +31,8 @@ const date = new Date();
 let year: number = date.getFullYear();
 let month: number = date.getMonth() + 1; // +1 otherwise January becomes 0
 let day: number = date.getDate();
+// let dateString: any = ((year * month) + day);
+console.log(date);
 
 let saveCategory: string = '';
 
@@ -108,7 +110,6 @@ function taskListerners() {
         checkbox.addEventListener('click', checkboxStatusShift);
     });
 
-    
 }
 
 /** 
@@ -149,25 +150,23 @@ function printTodoList() {
             </div>
         `
         
-        const singleTaskDeadline: Date = new Date(todoDatabase[i].deadline);
+        let singleTaskDeadline: Date = new Date(todoDatabase[i].deadline);
+        const deadlineInFiveDays: Date = new Date(date.getFullYear(), date.getMonth(), date.getDate() +5);               
         const deadlineIndicator = document.querySelector<HTMLDivElement>(`[id="${todoDatabase[i].id}"]`);
 
-        if(singleTaskDeadline.getDate() - day <= 5 && singleTaskDeadline.getDate() - day >= -1){
+        if(singleTaskDeadline < date) {
+            deadlineIndicator.classList.add('border-2', 'border-red-700');
+        }else if(singleTaskDeadline <= deadlineInFiveDays) {
             deadlineIndicator.classList.add('border-2', 'border-sky-500');
         }
-        if(singleTaskDeadline.getDate() - day < 0){
-            deadlineIndicator.classList.add('border-2', 'border-red-700');
-        }
+
         if(todoDatabase[i].completed){
             deadlineIndicator.classList.remove('border-2')
         }
-
     }
 
     taskListerners();
-
 } 
-
 
 function save() {
     localStorage.setItem(LOCAL_STORAGE_TASK_KEY, JSON.stringify(todoDatabase));
@@ -287,7 +286,6 @@ function checkboxStatusShift(event: any): void {
     save();
     printTodoList();
    
-     
 }
 
 /** 
