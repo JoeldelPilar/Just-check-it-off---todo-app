@@ -130,7 +130,7 @@ function printTodoList() {
               <input type="checkbox" ${checked} id="task-${todoDatabase[i].id}" class="hidden-checkbox absolute opacity-0">
               <label title="Deadline at ${todoDatabase[i].deadline}" for="task-${todoDatabase[i].id}" class="gap-2 flex-grow bg-slate-200/20 p-1 flex items-center font-semibold">
                 <span><span id="checkbox-${todoDatabase[i].id}" class="custom-checkbox flex"></span></span>
-                <p>${todoDatabase[i].inputContent}</p><span class="material-symbols-outlined">${todoDatabase[i].category}</span>
+                <p>${todoDatabase[i].inputContent}<span class="material-symbols-outlined">${todoDatabase[i].category}</span><br><span class="opacity-50">Deadline: ${todoDatabase[i].deadline}</span></p>
               </label>
               <button id="remove-${todoDatabase[i].id}" class="trash-btn p-1 bg-slate-200/20 z-10">
                 <span class="material-symbols-outlined pt-2">
