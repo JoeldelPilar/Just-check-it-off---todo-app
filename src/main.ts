@@ -307,7 +307,7 @@ async function getCurrentTime() {
     .then(data => data.json())
     .then(json => json)
     .catch(error => {
-      console.error('Error fetching timezone', error);
+      console.error('Error fetching week', error);
       return null;
     });
 }
