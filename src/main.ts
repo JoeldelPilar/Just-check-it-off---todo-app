@@ -31,8 +31,6 @@ const date = new Date();
 let year: number = date.getFullYear();
 let month: number = date.getMonth() + 1; // +1 otherwise January becomes 0
 let day: number = date.getDate();
-// let dateString: any = ((year * month) + day);
-console.log(date);
 
 let saveCategory: string = '';
 
@@ -314,7 +312,7 @@ function deleteTask(event: any): void {
  */
 
 async function getCurrentTime() {
-    return fetch('http://worldtimeapi.org/api/ip/')
+    return fetch('https://worldtimeapi.org/api/ip/')
     .then ((data) => data.json())
     .then ((json) => json)
     .catch((error) => {
