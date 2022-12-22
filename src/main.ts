@@ -37,7 +37,7 @@ console.log(date);
 let saveCategory: string = '';
 
 const displayDay: any = document.getElementById('date-stamp');  // any, not crusial for page function.
-// const displayWeek: any = document.getElementById('current-week'); // any, not crusial for page function.
+const displayWeek: any = document.getElementById('current-week'); // any, not crusial for page function.
 
 const allTasks = document.querySelector<HTMLElement>('#all-tasks'); // container for all individual tasks
 
@@ -313,22 +313,22 @@ function deleteTask(event: any): void {
  *  Fetch Time API from http://worldtimeapi.org/
  */
 
-// async function getCurrentTime() {
-//     return fetch('http://worldtimeapi.org/api/ip/')
-//     .then ((data) => data.json())
-//     .then ((json) => json)
-//     .catch((error) => {
-//     console.error('Error fetching timezone', error);
-//     return null;
-//     });
-// }
+async function getCurrentTime() {
+    return fetch('http://worldtimeapi.org/api/ip/')
+    .then ((data) => data.json())
+    .then ((json) => json)
+    .catch((error) => {
+    console.error('Error fetching timezone', error);
+    return null;
+    });
+}
 
 /**
  * Use week_number prop. from API to get current week number.
  */
 
-// const currentTime = await getCurrentTime();
-// displayWeek.innerHTML = '| week: ' + currentTime.week_number
+const currentTime = await getCurrentTime();
+displayWeek.innerHTML = '| week: ' + currentTime.week_number
 
 
 printTodoList();
