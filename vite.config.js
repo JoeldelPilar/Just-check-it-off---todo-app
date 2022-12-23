@@ -11,6 +11,6 @@ export default defineConfig({
     'process.env': {},
   },
   build: {
-    target: 'esnext'
+    target: 'esnext',
   },
 });

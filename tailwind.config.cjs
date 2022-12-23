@@ -1,15 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{html,js,ts,jsx,tsx}"],
+  content: ['./index.html', './src/**/*.{html,js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
-        'listprimarycolor': '#36495466',
-        'inputcolor': '#99aebb',
-        'focusring': '#5fedad',
-        'buttoncolor': '#7e56a6',
+        listprimarycolor: '#36495466',
+        inputcolor: '#99aebb',
+        focusring: '#5fedad',
+        buttoncolor: '#7e56a6',
       },
       screens: {
         'sm': '500px',
@@ -26,12 +24,12 @@ module.exports = {
 
         '2xl': '1536px',
         // => @media (min-width: 1536px) { ... }
-      }
+      },
     },
   },
   fontFamily: {
     Poppins: ['Montserrat', 'sans-serif'],
   },
 
-  plugins: [require("@tailwindcss/forms")],
-}
+  plugins: [require('@tailwindcss/forms')],
+};

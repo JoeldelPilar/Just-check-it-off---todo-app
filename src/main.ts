@@ -149,11 +149,10 @@ function printTodoList() {
       deadlineIndicator.classList.add('border-2', 'border-red-700');
     } else if (singleTaskDeadline <= deadlineInFiveDays) {
       deadlineIndicator.classList.add('border-2', 'border-sky-500');
-      } 
+    }
     console.log(date, 'date');
-   
+
     console.log(today, 'today');
-    
 
     if (todoDatabase[i].completed) {
       deadlineIndicator.classList.remove('border-2');
