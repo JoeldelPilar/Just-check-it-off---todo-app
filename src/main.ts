@@ -142,13 +142,18 @@ function printTodoList() {
 
     let singleTaskDeadline: Date = new Date(todoDatabase[i].deadline);
     const deadlineInFiveDays: Date = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 5);
+    const today: Date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     const deadlineIndicator = document.querySelector<HTMLDivElement>(`[id="${todoDatabase[i].id}"]`);
 
-    if (singleTaskDeadline < date) {
+    if (singleTaskDeadline < today) {
       deadlineIndicator.classList.add('border-2', 'border-red-700');
     } else if (singleTaskDeadline <= deadlineInFiveDays) {
       deadlineIndicator.classList.add('border-2', 'border-sky-500');
-    }
+      } 
+    console.log(date, 'date');
+   
+    console.log(today, 'today');
+    
 
     if (todoDatabase[i].completed) {
       deadlineIndicator.classList.remove('border-2');
@@ -297,7 +302,7 @@ function deleteTask(event: any): void {
     printTodoList();
   }
 }
-
+printTodoList();
 /**
  *  Fetch Time API from http://worldtimeapi.org/
  */
@@ -318,5 +323,3 @@ async function getCurrentTime() {
 
 const currentTime = await getCurrentTime();
 displayWeek.innerHTML = '| week: ' + currentTime.week_number;
-
-printTodoList();
