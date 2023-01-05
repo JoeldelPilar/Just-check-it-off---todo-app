@@ -1,0 +1,148 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Just check it off</title>
+  <meta name="description" content="webapp">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/ico" href="/Just-check-it-off---todo-app/favicon.ico">
+
+  <meta property="og:title" content="ToDo web app: Just check it off">
+  <meta property="og:type" content="web app">
+  <meta property="og:url" content="https://medieinstitutet.github.io/fed22d-js-grundkurs-2-todo-JoeldelPilar/">
+  <meta property="og:image"
+    content="https://raw.githubusercontent.com/Medieinstitutet/fed22d-js-grundkurs-2-todo-JoeldelPilar/gh-pages/images/og_img.jpg">
+  <meta property="og:description"
+    content="Solo project in the course JavaScript - Basics, simple todo web app using TypeScript and Tailwind.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <meta name="theme-color" content="#fafafa">
+  <script async type="module" crossorigin src="/Just-check-it-off---todo-app/assets/index.f3e2d3d2.js"></script>
+  <link rel="stylesheet" href="/Just-check-it-off---todo-app/assets/index.04e4dd18.css">
+</head>
+
+<body>
+  <header class="top-header flex">
+    <div class="head-logo flex items-end p-5">
+      <img src="/Just-check-it-off---todo-app/svg/head_logo.svg" alt="" width="50" height="50">
+      <h1 class="text-4xl font-bold tracking-wider text-white pl-3">
+        just check it off.
+      </h1>
+    </div>
+  </header>
+
+  <main class="mb-20">
+    <div class="flex flex-col relative mt-10">
+      <section id="todo-list" class="bg-[#36495495] w-4/5 p-5 rounded-md  mx-auto max-w-3xl shadow-lg">
+
+        <header class="sm:flex justify-between text-white items-end mb-6">
+
+          <h2 class="uppercase text-4xl font-black mb-5 sm:mb-0 tracking-wider">todo</h2>
+
+          <div id="sort-list-category" class="text-slate-700">
+            <label for="category" class="visually-hidden">category</label>
+            <select name="category" id="category" class="py-1 px3 bg-inputcolor focus:ring-focusring">
+              <option value="all">all</option>
+              <option value="atoz">name a to z</option>
+              <option value="date">latest</option>
+              <option value="undone">needs attention</option>
+            </select>
+          </div>
+        </header>
+
+        <div id="ToDo-body" class="text-white">
+          <article id="all-tasks"></article>
+
+          <hr class="mt-2">
+          <div id="create-new-task" class="py-5 text-black">
+
+            <div class="flex gap-2 justify-end mb-4 text-white text-center">
+              <div class="justify-center category-btns">
+                <h3 class="font-semibold text-xl mb-2">Choose a category</h3>
+                <button id="school"
+                  class="category-select material-symbols-outlined border-2 p-2 hover:bg-buttoncolor">school</button>
+                <button id="engineering"
+                  class="category-select material-symbols-outlined border-2 p-2 hover:bg-buttoncolor">engineering</button>
+                <button id="info"
+                  class="category-select material-symbols-outlined border-2 p-2 hover:bg-buttoncolor">info</button>
+              </div>
+            </div>
+
+            <form id="task-form" class="flex sm:flex-row flex-wrap justify-between gap-2">
+              <label for="new-task-input" class="visually-hidden">new task input</label>
+              <input id="new-task-input"
+                class="flex-grow p-1 py-2 mb-2 bg-inputcolor text-slate-900 focus:ring-focusring" type="text"
+                placeholder="new task input">
+              <span id="icon" class="material-symbols-outlined text-white"></span>
+              <label for="date-dropdown" class="visually-hidden">date dropdown window</label>
+              <input type="date" id="date-dropdown" class="bg-inputcolor mb-2 flex-wrap min-w-150"
+                onfocus="(this.type='date')">
+              <button type="submit" id="add"
+                class="mb-2 text-white self-end focus:ring-focusring bg-buttoncolor hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-full">
+                add
+              </button>
+            </form>
+          </div>
+
+          <div class="flex flex-grow justify-between gap-2">
+            <span id="date-stamp" class="text-l font-semibold"></span>
+            <span id="current-week"></span>
+          </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <section id="about" class="bg-[#36495495] w-4/5 relative mx-auto mb-10 text-white max-w-3xl rounded-md">
+    <h2 class=" text-xl p-2 font-light tracking-widest">About</h2>
+    <hr class="mx-2">
+    <p class="p-4"> <span class="font-bold">Hi</span>, welcome to the "just check it of" project. This is a classic ToDo
+      list with some extra features.
+      <br>
+      This was a solo project in the training "frontend developer" at the Media Institute in Stockholm, winter 2022.
+      The web app is built using TypeScript and Tailwind, which we started using after 4 weeks in the basic JavaScript
+      course. <br><br>
+      Now to some features:
+    <ul class="ml-5 pb-5">
+      <li><span class="font-bold text-xl">x</span> Add your todo in the input field.</li>
+      <li><span class="font-bold text-xl">x</span> Set a deadline in the date dropdown.</li>
+      <li><span class="font-bold text-xl">x</span> Sort your list by all, a to z, latest(added most recently) or need
+        attention(closest to deadline).</li>
+      <li><span class="font-bold text-xl">x</span> When there is 5 days to deadline, a blue border will appear around
+        the task.</li>
+      <li><span class="font-bold text-xl">x</span> Deadline passed? The border color now turns red.</li>
+      <li><span class="font-bold text-xl">x</span> Set a category/icon to your task, school, work or info</li>
+    </ul>
+
+    </p>
+  </section>
+
+  <section id="contact" class="bg-[#36495495] w-4/5 relative mx-auto text-white max-w-3xl rounded-md">
+    <h2 class=" text-xl p-2 font-light tracking-widest">Contact</h2>
+    <hr class="mx-2">
+    <div class="p-5 flex justify-start gap-5 ml-2">
+      <a href="https://www.linkedin.com/in/joeldelpilar/" rel="noopener noreferrer"
+        class="fa fa-linkedin text-5xl pr-5 border-r-[2px] scale-1 transition-transform hover:scale-1.5" target="_blank"
+        title="joel del pilar linkedin"></a>
+
+      <a href="https://github.com/JoeldelPilar" rel="noopener noreferrer" class="fa fa-github text-5xl" target="_blank"
+        title="joel del pilar github"></a>
+      <article>
+        Credits: <br> Kevin Powell - custom checkboxes <br> Kyle - web dev Simplified, TypeScript inspiration
+      </article>
+    </div>
+  </section>
+
+  
+</body>
+
+</html>
