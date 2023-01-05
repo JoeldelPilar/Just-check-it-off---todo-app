@@ -1,59 +1,17 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=9549892&assignment_repo_type=AssignmentRepo)
+# About
 
-# Denna mall var utgångspunkten i projektet som jag fick tilldelat:
+Hi, welcome to "Just check it off". This is a simple "ToDo" - web app. This was the second assignment that was given to me during the course "JavaScript - Basics". I got the assignment about 4 weeks in to the course (8 weeks in total). 
 
-## FED22D JS Grundkurs Projektmall
+I challenged myself to create it with TypeScript and Tailwind, both wich I was total new to. In my main.ts file I have tried to write self-explanatory code and in some places I've left comments to clarify functions, variables and so on. 
 
-Mall för projektuppgiften i JavaScript Grundkurs för FED22D.
+## Functionallity
 
-Mallen innehåller:
+Other than the classic "ToDo" functions, we had several conditionals that was required:
 
-- Vite (för att komprimera och publicera optimerad kod)
-- ESLint, Prettier och Stylelint för kodformatering
-- TypeScript för typstöd
-- Inställningar för Visual Studio Code
+- Set deadline.
+- Add category or some visual element.
+- Passed deadline visual indication.
+- Due in 5 days or less visual indication.
+- ToDo done, visual change and auto sort last in list.
 
-## Installation
-
-Installera "dependencies" till projektet med följande kommando i terminalen:
-
-- Med npm: `npm install`
-- Med pnpm: `pnpm install`
-- Med Yarn: `yarn install`
-
-För att köra projektet, använd scriptet "dev" i `package.json`:
-
-- Med npm: `npm run dev`
-- Med pnpm: `pnpm run dev`
-- Med Yarn: `yarn run dev`
-
-## Såhär använder du mallen
-
-- Du arbetar primärt i mappen `src`. Där finns JavaScript och stilmallar.
-- På rotnivån i projektet hittar du `index.html`, som du kan använda såsom du använt `index.html` hittills i de olika projekten.
-- I mappen `public` lägger du alla filer som t.ex. bilder, favicons, fonter, osv. som är s.k. "static assets". T.ex. sådant du behöver länka in från SCSS.
-
-### Filer du inte behöver röra
-
-- `src/vite-env.d.ts` - Används för att bidra med "code hinting" i editorn
-- `.gitignore` - Vilka filer som inte ska vara med i versionshanteringen
-- `tsconfig.json` - Används för att definiera hur TypeScript ska skrivas och tolkas
-- `.npmrc` - Används för att installera ev. dependencies
-- `stylelint.config.cjs` - Regler för hur SCSS ska skrivas.
-- `.pretterrc.json` - Används för att tvinga JavaScript att skrivas på ett visst sätt. Ändra om du vill göra en egen konfiguration
-- `.eslintrc.cjs` - Används för att tvinga JavaScript att skrivas på ett visst sätt. Ändra om du vill göra din egen konfiguration.
-- Mappen `.github` innehåller en s.k. action/workflow för att publicera de ändringar som pushas till main, när repot är publikt
-
-## Publicera ditt projekt
-
-Detta projekt innehåller en automatisk workflow/action, som fungerar såhär:
-
-1. Varje gång du pushar till branchen `main`, så triggas ett script som heter `Deploy changes`.
-2. Detta script kör i princip kommandot `pnpm run build`. Den skapar en mapp som heter `dist`, som innehåller ditt optimerade/färdiga/publicerade projekt. Filerna i den mappen kopieras över till en ny branch, som heter `gh-pages`.
-
-För att aktivera din sajt live behöver du:
-
-1. Gå in i filen `vite.config.js` och ändra `base` så att den heter samma som ditt repo heter.
-2. Gå in i inställningarna för ditt repo (Settings), gå till fliken "General" och längst ner på sidan i "Danger Zone" ändrar du repots "visibility" till public.
-3. I samma "Settings"-flik på ditt repo, klicka på "Pages" i menyn till vänster.
-4. I "Branch"-dropdownen väljer du `gh-pages`.
+I also added some features that was out of scoope for the task but that I whanted to explore. In the left corner of the list is todays date displayed, quiet simple but had not tried using it before. Also I whanted to try using some kind of API and there for, in the right corner (bottom corner) is a week number display. This is fetched via a API. I noticed that sometimes the fetching does not get through, this does not affect the user, nor does it break the site. If you can't see the week number simply try and refresh the page. 
